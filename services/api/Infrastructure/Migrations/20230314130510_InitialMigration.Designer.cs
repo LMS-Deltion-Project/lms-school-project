@@ -5,13 +5,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using lms.Data;
 
 #nullable disable
 
-namespace lms.Migrations
+namespace Infrastructure.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(Infrastructure.Database.Context))]
     [Migration("20230314130510_InitialMigration")]
     partial class InitialMigration
     {
