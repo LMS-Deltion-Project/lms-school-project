@@ -1,11 +1,12 @@
-namespace Infrastructure.Database;
-
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-public class Context : DbContext
+namespace Infrastructure.Database;
+
+public class Context : IdentityDbContext
 {
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public Context(DbContextOptions<Context> options) : base(options)
     {
-        optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection"));
+
     }
 }

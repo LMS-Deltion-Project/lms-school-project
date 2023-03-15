@@ -4,17 +4,37 @@
 
 ENTRY_POINT=${1};
 DOCKER_CONTAINER_PREFIX=$(basename "`pwd`");
-USER_ARGS=${@:2}
+USER_ARGS=${@:2};
 
 if ! echo "dotnet psql npm node" | tr " " '\n' | grep -F -q -x ${ENTRY_POINT} 2>/dev/null; then
-    echo "Invalid command! Please pick between [dotnet, psql, npm, node]."
+    echo "Invalid command! Please pick between [dotnet, psql, npm, node].";
     exit 1;
 elif [ ${ENTRY_POINT} == "dotnet" ]; then
+    if docker exec -it "${DOCKER_CONTAINER_PREFIX}-api-1" dotnet ${USER_ARGS}; then
+        exit 0;
+    fi
+
+    if ! echo "ef build watch run" | tr " " '\n' | grep -F -q -x ${2} 2>/dev/null; then
+        exit 1;
+    fi
+
+    echo -e 'Could not execute command successfully.\nDo you wish to remove the Debug directory and rerun the initial command? [Y/n]';
+    read;
+
+    if ! echo ${REPLY} | grep -q -e "[Yy]"; then
+        exit 1;
+    fi
+
+    docker exec -it "${DOCKER_CONTAINER_PREFIX}-api-1" rm -rf bin/container/Debug;
+    echo "bin/container/Debug directory has been deleted.";
+
     docker exec -it "${DOCKER_CONTAINER_PREFIX}-api-1" dotnet ${USER_ARGS}
+
 elif [ ${ENTRY_POINT} == "psql" ]; then
-    docker exec -it "${DOCKER_CONTAINER_PREFIX}-database-1" psql -U lms -d lms ${USER_ARGS}
+    source ./.env
+    docker exec -it "${DOCKER_CONTAINER_PREFIX}-database-1" psql -U ${POSTGRES_USER} -d ${POSTGRES_DB} ${USER_ARGS};
 elif [ ${ENTRY_POINT} == "npm" ]; then
-    docker exec -it "${DOCKER_CONTAINER_PREFIX}-web-1" npm ${USER_ARGS}
+    docker exec -it "${DOCKER_CONTAINER_PREFIX}-web-1" npm ${USER_ARGS};
 elif [ ${ENTRY_POINT} == "node" ]; then
-    docker exec -it "${DOCKER_CONTAINER_PREFIX}-web-1" node ${USER_ARGS}
+    docker exec -it "${DOCKER_CONTAINER_PREFIX}-web-1" node ${USER_ARGS};
 fi
