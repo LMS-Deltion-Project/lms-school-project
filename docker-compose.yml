@@ -6,13 +6,14 @@ services:
     hostname: ${POSTGRES_HOST}
     image: postgres:latest
     environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
-      - TZ=${TIME_ZONE}
+      - POSTGRES_HOST=${POSTGRES_HOST:-lms-database-1}
+      - POSTGRES_USER=${POSTGRES_USER:-lms}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-lms}
+      - POSTGRES_DB=${POSTGRES_DB:-lms}
+      - TZ=${TIME_ZONE:-Europe/Amsterdam}
     restart: always
     ports:
-      - ${DOCKER_DB_PORT:-5433}:${POSTGRES_PORT:-5432}
+      - ${POSTGRES_PORT:-5433}:5432
     networks:
       - localdev
     volumes:
@@ -21,7 +22,6 @@ services:
       - ./.env
 
   api:
-    image: mcr.microsoft.com/dotnet/sdk:7.0
     build: 
       context: .
       dockerfile: ./docker/api/Dockerfile
@@ -35,8 +35,8 @@ services:
       - DOTNET_WATCH_RESTART_ON_RUDE_EDIT=1
       - ASPNETCORE_ENVIRONMENT=Development
       - TZ=${TIME_ZONE}
-      - ConnectionStrings__DefaultConnection=User ID=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Server=${POSTGRES_HOST};Port=${POSTGRES_PORT};Database=${POSTGRES_DB}; IntegratedSecurity=true;Pooling=true;
-      - DOTNET_CLI_TELEMETRY_OPTOUT = 1
+      - ConnectionStrings__DefaultConnection=Host=${POSTGRES_HOST}; Database=${POSTGRES_DB}; Username=${POSTGRES_USER}; Password=${POSTGRES_PASSWORD};
+      - DOTNET_CLI_TELEMETRY_OPTOUT=1
     volumes:
       - ./services/api:/api
     tty: true
@@ -61,7 +61,6 @@ services:
     networks:
       - localdev
     
-
 networks:
   localdev:
 

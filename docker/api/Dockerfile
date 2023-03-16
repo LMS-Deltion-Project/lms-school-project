@@ -11,7 +11,12 @@ WORKDIR /api
 COPY ./services/api ./
 
 RUN dotnet tool install --global dotnet-ef
+RUN dotnet add package Microsoft.EntityFrameworkCore
+RUN dotnet add package Microsoft.EntityFrameworkCore.Analyzers
+RUN dotnet add package Microsoft.EntityFrameworkCore.Design
+RUN dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
 
-RUN PATH="$PATH:/root/.dotnet/tools"
+# Adds the Entity Framework CLI tools to our path.
+ENV PATH="${PATH}:/root/.dotnet/tools"
 
 CMD [ "dotnet", "watch", "--no-hot-reload" ]
