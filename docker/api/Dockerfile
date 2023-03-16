@@ -11,6 +11,7 @@ RUN dotnet add package Microsoft.EntityFrameworkCore
 RUN dotnet add package Microsoft.EntityFrameworkCore.Analyzers
 RUN dotnet add package Microsoft.EntityFrameworkCore.Design
 RUN dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+RUN dotnet restore
 
 # Adds the Entity Framework CLI tools to our path.
 ENV PATH="${PATH}:/root/.dotnet/tools"

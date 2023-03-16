@@ -1,4 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using Infrastructure.Database;
+
+namespace Models;
 
 public class Category
 {
@@ -8,5 +11,10 @@ public class Category
 
 public class CategoryContext : Infrastructure.Database.Context
 {
+    public CategoryContext()
+    {
+
+    }
+
     public DbSet<Category> Categories { get; set; }
 }

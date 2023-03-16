@@ -1,12 +1,14 @@
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Database;
 
-public class Context : IdentityDbContext
+public class Context : DbContext
 {
-    public Context(DbContextOptions<Context> options) : base(options)
-    {
+    protected readonly IConfiguration configuration;
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        Console.WriteLine(Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection"));
+        optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection"));
     }
 }
