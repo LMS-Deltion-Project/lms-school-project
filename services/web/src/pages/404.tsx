@@ -6,4 +6,4 @@ function render() {
     );
 }
 
-export default render
+export default render;

@@ -8,7 +8,7 @@ module.exports = {
       backgroundImage: {
         'home': "url('/home.jpg')",
         'logo': "url('/logo.png)",
-      }
+      },
     },
   },
   plugins: [],
