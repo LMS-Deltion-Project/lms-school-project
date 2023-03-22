@@ -1,11 +1,26 @@
 import Btn from "../../components/btn"
-import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
+import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
+import Footer from "../../components/footer";
+import MobileMenu from "../../components/mobileMenu";
 
+const links = {
+    development: {
+        name: "development",
+        link:"/browse?category=development"
+    },
+
+}
 function render() {
     return (
         <>
-            <div className="bg-home h-screen w-screen bg-center bg-cover md:p-9 sm:p-8 relative">
-                <img src="./logo.png" alt="logo-image" className="w-40" />
+            <div className="bg-home h-screen w-screen bg-center bg-cover md:p-9 sm:p-8 z-0">
+                <div className="flex justify-between items-center">
+                    <img src="./logo.png" alt="logo-image" className="w-40"/>
+                    <div className="h-full flex ">
+                        <MobileMenu />
+                    </div>
+
+                </div>
                 <div className="w-96 text-white md:pl-24 sm:pt-28 xs:w-full xs:h-1/3 flex flex-col xs:justify-end">
                     <div className="text-5xl xs:text-4xl xs:text-center xs:font-bold">
                         Learn & Share
@@ -36,7 +51,9 @@ function render() {
                 <Btn text="Browse" extraStyles="w-48 flex text-2xl" link="/browse">
                     <ChevronRightIcon className="w-[36px] ml-2 inline-flex "/>
                 </Btn>
+
             </div>
+            <Footer />
         </>
     )
 }
