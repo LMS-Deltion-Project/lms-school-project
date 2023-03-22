@@ -1,4 +1,4 @@
-import Btn from "../../components/btn";
+import Btn from "../../components/btn"
 import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 
 function render() {
@@ -28,8 +28,7 @@ function render() {
                     </div>
                 </div>
             </div>
-            <div>
-                
+            <div className="w-full px-[10%] ">
             </div>
         </>
     )
