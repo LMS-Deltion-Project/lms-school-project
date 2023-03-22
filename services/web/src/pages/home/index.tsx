@@ -14,7 +14,7 @@ function render() {
                         Start creating your own course by creating an account
                     </div>
                     <div className="flex justify-center">
-                        <Btn text="Get started" extraClasses="mt-2 w-full justify-center xs:w-[75%] xs:text-center" link="/test">
+                        <Btn text="Get started" extraStyles="mt-2 w-full xs:w-[75%] xs:text-center" link="/test">
                             <ChevronRightIcon className="w-[22px] ml-2 inline-flex"/>
                         </Btn>
                     </div>
@@ -28,7 +28,14 @@ function render() {
                     </div>
                 </div>
             </div>
-            <div className="w-full px-[10%] ">
+            <div className="w-full px-[10%] pt-9 flex items-center flex-col">
+                <Btn text="Browse" extraStyles="w-48 flex text-2xl xs:hidden" link="/browse">
+                    <ChevronRightIcon className="w-[36px] ml-2 inline-flex "/>
+                </Btn>
+
+                <Btn text="Browse" extraStyles="w-48 flex text-2xl" link="/browse">
+                    <ChevronRightIcon className="w-[36px] ml-2 inline-flex "/>
+                </Btn>
             </div>
         </>
     )

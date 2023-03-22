@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 function render(props:any) {
 
-    const defaultStyles = "text-white p-2 bg-homestyleblue rounded-lg inline-flex text-center"
-    const usedSytles = props.extraClasses ? props.extraClasses : ""
+    const defaultStyles = "text-white p-2 bg-homestyleblue rounded-lg inline-flex text-center justify-center"
+    const usedSytles = props.extraStyles ? props.extraStyles : ""
 
     if(props.link) {
         return (<>
