@@ -1,5 +1,6 @@
 using System.Text;
 using lms.Data;
+using lms.Services.AccountService;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -40,6 +41,10 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
             builder.Configuration.GetSection("AppSettings:DOTNET_JWT_KEY").Value!))
     };
 });
+
+// Services
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+builder.Services.AddScoped<IAccountService, AccountService>();
 
 var app = builder.Build();
 
