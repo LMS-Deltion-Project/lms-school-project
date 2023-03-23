@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Logo from "./logo";
 
 function render() {
     return (<>
@@ -10,7 +11,9 @@ function render() {
                 <Link to="/privacy-policy" className="mr-3">Privacy Policy</Link>
             </div>
             <div className="flex xs:flex-col">
-                <img src="/logo.png" alt="logo" className="w-20 bg-white rounded mb-2 hidden xs:flex"/>
+                <div className="flex w-full flex justify-end">
+                    <Logo styles="w-20 bg-white rounded mb-2 hidden xs:flex"/>
+                </div>
                 <p className="xs:text-xs ">© Ludo Tielbeke & Gido Koning 2022</p>
             </div>
         </div>

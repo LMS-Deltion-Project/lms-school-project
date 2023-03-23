@@ -2,6 +2,7 @@ import Btn from "../../components/btn"
 import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
 import Footer from "../../components/footer";
 import MobileMenu from "../../components/mobileMenu";
+import Logo from "../../components/logo";
 
 const links = {
     development: {
@@ -15,7 +16,9 @@ function render() {
         <>
             <div className="bg-home h-screen w-screen bg-center bg-cover md:p-9 sm:p-8 z-0">
                 <div className="flex justify-between items-center">
-                    <img src="./logo.png" alt="logo-image" className="w-40"/>
+
+                    <Logo styles="w-40"/>
+                    {/*<img src="./logo.png" alt="logo-image" className="w-40"/>*/}
                     <div className="h-full flex ">
                         <MobileMenu />
                     </div>
