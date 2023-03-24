@@ -7,7 +7,6 @@ export default function Router() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          
           <Route path="*" element={<Fourofour />} />
         </Routes>
       </BrowserRouter>
