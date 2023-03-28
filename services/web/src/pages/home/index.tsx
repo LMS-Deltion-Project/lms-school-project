@@ -1,7 +1,7 @@
 import Btn from "../../components/btn"
 import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
 import Footer from "../../components/footer";
-import MobileMenu from "../../components/mobileMenu";
+import MobileMenu from "../../components/mobileMenu/mobileMenu";
 import Logo from "../../components/logo";
 
 const links = {
