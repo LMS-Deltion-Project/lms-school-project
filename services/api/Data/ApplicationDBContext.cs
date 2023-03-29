@@ -1,13 +1,23 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using lms.Model;
 
 namespace lms.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        private readonly IConfiguration _configuration;
+
+        public DbSet<User> Users { get; set; }
+        
+        public ApplicationDbContext(IConfiguration configuration)
         {
-            
+            _configuration = configuration;
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseNpgsql(_configuration.GetConnectionString("DefaultConnection"));
         }
     }
 }

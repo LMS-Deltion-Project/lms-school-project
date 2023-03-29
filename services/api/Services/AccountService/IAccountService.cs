@@ -8,4 +8,6 @@ public interface IAccountService
     public Task<ServiceResponse<LoginUserResponseDto>> Authenticate(LoginUserRequestDto userCredentials);
 
     public Task<ServiceResponse<CreateUserResponseDto>> Create(CreateUserRequestDto newUser);
+
+    public Task<ServiceResponse<GetUserResponseDto>> GetUser(string userIdentifier);
 }

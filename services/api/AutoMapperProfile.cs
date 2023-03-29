@@ -11,5 +11,8 @@ public class AutoMapperProfile : Profile
     {
         CreateMap<LoginUserRequestDto, User>();
         CreateMap<User, CreateUserResponseDto>();
+        CreateMap<User, GetUserResponseDto>();
+        CreateMap<GetUserResponseDto, User>();
+        CreateMap<CreateUserRequestDto, User>();
     }
 }

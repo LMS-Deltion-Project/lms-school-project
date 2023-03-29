@@ -21,12 +21,33 @@ public class AccountController : ControllerBase
     [HttpPost("authenticate")]
     public async Task<IActionResult> Authenticate(LoginUserRequestDto userCredentials)
     {
-        return Ok(await _accountService.Authenticate(userCredentials));
+        var serivceResponse = await _accountService.Authenticate(userCredentials);
+
+        if (serivceResponse.Success == false)
+        {
+            return Unauthorized(serivceResponse);
+        }
+        return Ok(serivceResponse);
     }
 
+    [HttpGet("user")]
+    public async Task<IActionResult> GetUser(string userIdentifier)
+    {
+        var serviceResponse = await _accountService.GetUser(userIdentifier);
+        if (serviceResponse.Success == false)
+        {
+            return BadRequest(serviceResponse);
+        }
+        return Ok(serviceResponse);
+    }
     [HttpPost("register")]
     public async Task<IActionResult> Create(CreateUserRequestDto newUser)
     {
-        return Ok(await _accountService.Create(newUser));
+        var serviceResponse = await _accountService.Create(newUser);
+        if (serviceResponse.Success == false)
+        {
+            return BadRequest(serviceResponse);
+        }
+        return Ok(serviceResponse);
     }
 }
