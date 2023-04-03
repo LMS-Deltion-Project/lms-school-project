@@ -15,13 +15,15 @@ function render() {
     return (
         <>
             <div className="bg-home h-screen bg-center bg-cover md:p-9 sm:p-8 z-0">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between">
 
                     <Logo styles="w-40"/>
-                    <div className="h-full flex ">
-                        <MobileMenu />
+                    <div className="flex xs:hidden">
+                        sdkfjksldfj
                     </div>
-
+                        <div className="h-full flex justify-center">
+                            <MobileMenu />
+                        </div>
                 </div>
                 <div className="w-96 text-white md:pl-24 sm:pt-28 xs:w-full xs:h-1/3 flex flex-col xs:justify-end">
                     <div className="text-5xl xs:text-4xl xs:text-center xs:font-bold">
