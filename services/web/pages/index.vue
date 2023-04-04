@@ -6,8 +6,8 @@
             <div class="flex xs:hidden">
                 sdkfjksldfj
             </div>
-            <div class="h-full flex justify-center">
-                 <MobileMenu />
+            <div v-if="widthtest" class="h-full flex justify-center">
+                 <headerMenu @test="(menuState) => test(menuState)" />
             </div>
         </div>
         <div class="w-96 text-white md:pl-24 sm:pt-28 xs:w-full xs:h-1/3 flex flex-col xs:justify-end">
@@ -48,5 +48,23 @@
 <script setup lang="ts">
 import {ChevronDownIcon} from "@heroicons/vue/20/solid";
 import {ChevronRightIcon} from "@heroicons/vue/24/solid";
+import HeaderMenu from "~/components/menu/headerMenu.vue";
+import { defineCustomElement } from 'vue'
+import {computed, ref} from "vue";
+
+// const widthtest = reactive({ width: window.innerWidth })
+
+function test(menuState: Boolean) {
+  console.log(menuState)
+}
+
+// const width = computed(() => {
+//   console.log(typeof document.body.clientWidth)
+//   return document.body.clientWidth
+// })
+
+watch(widthtest, (obj) => {
+  return obj.width
+})
 
 </script>
