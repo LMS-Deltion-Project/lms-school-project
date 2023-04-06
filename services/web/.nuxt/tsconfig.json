@@ -44,6 +44,9 @@
       "assets": [
         "assets"
       ],
+      "assets/*": [
+        "assets/*"
+      ],
       "public": [
         "public"
       ],
@@ -59,20 +62,11 @@
       "vue-demi": [
         "node_modules/nuxt/dist/app/compat/vue-demi"
       ],
-      "@vueuse/head": [
-        "node_modules/@unhead/vue/dist/index"
-      ],
-      "#imports": [
-        ".nuxt/imports"
-      ],
       "#build": [
         ".nuxt"
       ],
       "#build/*": [
         ".nuxt/*"
-      ],
-      "#components": [
-        ".nuxt/components"
       ]
     }
   },
@@ -81,7 +75,6 @@
     "../**/*"
   ],
   "exclude": [
-    "../dist",
-    "../.output"
+    "../dist"
   ]
 }
