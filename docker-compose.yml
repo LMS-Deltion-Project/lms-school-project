@@ -36,6 +36,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - TZ=${TIME_ZONE}
       - ConnectionStrings__DefaultConnection=Host=${POSTGRES_HOST}; Database=${POSTGRES_DB}; Username=${POSTGRES_USER}; Password=${POSTGRES_PASSWORD};
+      - AppSettings__DOTNET_JWT_KEY=${DOTNET_JWT_KEY}
       - DOTNET_CLI_TELEMETRY_OPTOUT=1
     volumes:
       - ./services/api:/api
