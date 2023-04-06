@@ -7,7 +7,7 @@
         {item.text}
       </nuxt-link>
       </div>
-      <div v-else>
+      <div>
         <nuxt-link to="/test" class="flex flex-row justify-between my-1 w-full border-t border-gray-600 pt-2">
           <ChevronLeftIcon class="w-[20px]"/>
           test
