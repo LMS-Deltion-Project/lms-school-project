@@ -6,4 +6,4 @@ COPY ./services/web ./
 
 RUN npm install
 
-CMD [ "sh", "-c", "npm install && npm run dev" ]
+CMD [ "sh", "-c", "npm run dev" ]

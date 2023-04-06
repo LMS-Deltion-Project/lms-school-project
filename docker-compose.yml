@@ -56,7 +56,8 @@ services:
       - ./services/web:/web
     tty: true
     ports:
-      - ${NODE_PORT:-81}:5173
+      - ${NODE_PORT:-81}:3000
+      - 24678:24678
     env_file:
       - ./.env
     networks:
