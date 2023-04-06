@@ -1,7 +1,9 @@
 using System.Text;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using lms.Common;
 using lms.Data;
 using lms.Services.AccountService;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
@@ -42,6 +44,9 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
 // Services
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IAccountService, AccountService>();
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<IAssemblyMarker>();
 
 var app = builder.Build();
 

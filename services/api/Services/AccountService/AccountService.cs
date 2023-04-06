@@ -1,16 +1,12 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using AutoMapper;
 using BCrypt.Net;
 using lms.Data;
 using lms.Dtos.User;
 using lms.Model;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Update;
 using Microsoft.IdentityModel.Tokens;
 
 namespace lms.Services.AccountService;
@@ -44,7 +40,7 @@ public class AccountService : IAccountService
 
             if (!getUserServiceResponse.Success)
             {
-                throw new Exception("Username, Email or (password) are incorrect.");
+                throw new Exception("Username/Email does not exists or (password) are incorrect.");
             }
 
             var user = getUserServiceResponse.Data;
@@ -52,11 +48,10 @@ public class AccountService : IAccountService
             var password = (await _users.FindAsync((int)user.Id)).Password;
             if (!BCrypt.Net.BCrypt.EnhancedVerify(userCredentials.Password, password, hashType:HashType.SHA256))
             {
-                throw new Exception("Username, Email or (password) are incorrect.");
+                throw new Exception("Username/Email does not exists or (password) are incorrect.");
 
             }
             
-        
             var authToken = new LoginUserResponseDto
             {
                 BearerToken = CreateAuthToken(_mapper.Map<User>(user))
@@ -102,11 +97,21 @@ public class AccountService : IAccountService
     public async Task<ServiceResponse<CreateUserResponseDto>> Create(CreateUserRequestDto request)
     {
         var serviceResponse = new ServiceResponse<CreateUserResponseDto>();
-        
         try
         {
             var newUser = _mapper.Map<User>(request);
+
+            var userNameUnique = GetUser(newUser.UserName).Result.Data == null;
+            var emailUnique = GetUser(newUser.Email).Result.Data == null;
+            if (!userNameUnique)
+            {
+                throw new Exception("User name already exists");
+            }
             
+            if (!emailUnique)
+            {
+                throw new Exception("Email already exists");
+            }
             
             string passwordHash = BCrypt.Net.BCrypt.EnhancedHashPassword(newUser.Password,11, hashType:HashType.SHA256);
             
