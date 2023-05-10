@@ -1,16 +1,7 @@
 <template>
     <div class="bg-home h-screen bg-center bg-cover md:p-9 sm:p-8 z-0">
-        <div class="flex justify-between">
+        <AppHeader/>
 
-             <Logo styles="w-40" />
-            <div class="flex xs:hidden items-center underline">
-                <nuxt-link to="/browse" class="mx-6">Browse</nuxt-link>
-                <nuxt-link to="/login" class="mx-6">Login</nuxt-link>
-            </div>
-            <div v-if="screenSize.width < 600" class="h-full flex items-center">
-                 <headerMenu :menuItems="menuItems"/>
-            </div>
-        </div>
         <div class="w-96 text-white md:pl-24 sm:pt-28 xs:w-full xs:h-1/3 flex flex-col xs:justify-end">
             <div class="text-5xl xs:text-4xl xs:text-center xs:font-bold">
                 Learn & Share
