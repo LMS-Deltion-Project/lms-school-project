@@ -1,5 +1,6 @@
 using lms.Dtos.User;
 using lms.Services.AccountService;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lms.Controllers;
@@ -18,6 +19,7 @@ public class AccountController : ControllerBase
         _logger = logger;
     }
     
+    [EnableCors]
     [HttpPost("authenticate")]
     public async Task<IActionResult> Authenticate(LoginUserRequestDto userCredentials)
     {
