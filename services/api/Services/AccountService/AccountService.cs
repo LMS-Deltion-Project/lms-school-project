@@ -52,9 +52,11 @@ public class AccountService : IAccountService
 
             }
             
-            var authToken = _mapper.Map<LoginUserResponseDto>(user);
-            authToken.BearerToken = CreateAuthToken(_mapper.Map<User>(user));
-
+            var authToken = new LoginUserResponseDto
+            {
+                BearerToken = CreateAuthToken(_mapper.Map<User>(user))
+            };
+        
             serviceResponse.Data = authToken;
         }
         catch (Exception ex)
