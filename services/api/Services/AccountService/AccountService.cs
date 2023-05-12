@@ -136,7 +136,7 @@ public class AccountService : IAccountService
     {
         List<Claim> claims = new List<Claim>()
         {
-            new Claim(ClaimTypes.Name, user.UserName)
+            new Claim("sub", user.Id.ToString()),
         };
         
         var dotnetJwtKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
