@@ -1,23 +1,26 @@
 import {defineStore} from 'pinia'
 // const baseUrl = 'http://localhost:5005'
 import { useMainStore } from "~/store/main";
+import jwt_decode from "jwt-decode";
 
 export const useAuthStore = defineStore({
     id: 'useAuth',
 
     state: () => ({
-        bearerToken: "" as string | number,
-        userIdentifier: "" as string | number,
+        bearerToken: "" as string,
+        userIdentifier: "" as string,
     }),
 
     actions: {
         async login(loginForm: any) {
             const mainStore = useMainStore();
 
-            await $fetch(`${mainStore.baseUrlApi}/Account/authenticate`, {
-            // await $fetch(`/api/v1/Account/authenticate`, {
+            await $fetch(`${mainStore.baseUrlApi}Account/authenticate`, {
                 method: 'POST',
-                body: loginForm
+                body: loginForm,
+                header: {
+                    'Content-Type': 'application/json'
+                },
             })
                 .then(response => {
                     // @ts-ignore
@@ -26,10 +29,13 @@ export const useAuthStore = defineStore({
                     // @ts-ignore
                     this.bearerToken = data.bearerToken;
 
-                    // @ts-ignore
-                    this.userIdentifier = data.userName;
+                    const decodedJWT = jwt_decode(this.bearerToken);
 
-                    this.createAuthCookie()
+                    // @ts-ignore
+                    this.userIdentifier = decodedJWT.sub;
+
+                    // @ts-ignore
+                    this.createAuthCookie(decodedJWT.exp)
                 })
                 .catch(error => { throw error })
         },
@@ -42,25 +48,32 @@ export const useAuthStore = defineStore({
 
         destroyCookie() {
             // Destroy cookie
-            document.cookie = "auth"+'=; Max-Age=0;';
+            document.cookie = "Authorization"+'=; Max-Age=-1;';
         },
 
-        createAuthCookie() {
+        createAuthCookie(expiration: number) {
+            const mainStore = useMainStore();
+
             this.destroyCookie()
-            const authCookie = useCookie('auth', {
-                maxAge: (60 * 60 * 24 * (7 * 2)),// 2 week
+            const authCookie = useCookie('Authorization', {
+                maxAge: expiration,
+                //secure: mainStore.environment == "development", // when in production must be set to true
+                secure: mainStore.environment == "production", // Will be set to true when environment in main store is production
+                sameSite: "strict",
+                httpOnly: false, // Must be true in production
+
             });
             const object: object = {userIdentifier: this.userIdentifier, bearerToken: this.bearerToken}
             authCookie.value = JSON.stringify(object);
         },
 
-        getCookieValue(cookieId: string, key: string): string | number {
+        getCookieValue(cookieId: string, key: string): string {
             let cookie = useCookie(cookieId);
 
             // @ts-ignore
             if (cookie.value !== null && cookie.value && cookie.value[key] !== "") {
                 // @ts-ignore
-                return cookie.value[key];
+                return cookie.value[key].toString();
             }
             return "";
         },

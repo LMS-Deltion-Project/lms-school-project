@@ -9,7 +9,7 @@
 
   const authStore = useAuthStore();
 
-  authStore.bearerToken = authStore.getCookieValue('auth', 'bearerToken');
-  authStore.userIdentifier = authStore.getCookieValue('auth', 'userIdentifier');
+  authStore.bearerToken = authStore.getCookieValue('Authorization', 'bearerToken');
+  authStore.userIdentifier = authStore.getCookieValue('Authorization', 'userIdentifier');
 
 </script>
